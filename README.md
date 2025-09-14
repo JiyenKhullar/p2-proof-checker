@@ -239,51 +239,9 @@ The system provides detailed error messages for common issues:
 - **MP application errors**: Incorrect antecedent/consequent matching
 - **API errors**: Gemini connection or quota issues
 
-## 🎨 Customization
-
-### Extending the System
-
-**Add new axioms:**
-```python
-# In AxiomMatcher.is_axiom_instance()
-ax4_pattern = parse_formula("your_axiom_pattern")
-if AxiomMatcher.match_formula(formula, ax4_pattern):
-    return "AX4"
-```
-
-**Custom inference rules:**
-```python
-# In ProofVerifier._verify_line()
-if justification.startswith("NEW_RULE"):
-    return self._verify_new_rule(line, justification)
-```
-
-**Different LLM backends:**
-```python
-# Create new generator class inheriting from base
-class OpenAIProofGenerator(ProofGenerator):
-    def generate_proof_with_llm(self, premises, goal, feedback=None):
-        # Your OpenAI implementation
-        pass
-```
-
-## 📈 Performance
-
-- **Verifier**: ~1000 proofs/second for typical formulas
-- **Generator**: 2-10 seconds per proof depending on complexity
-- **Memory**: <10MB for typical usage
-
-## 🙏 Acknowledgments
-
-- Jan Łukasiewicz and Alonzo Church for the original axiom system
-- Google for the Gemini API
-- The formal logic and automated theorem proving communities
-
 ## 🔗 Links
 
 - [Google AI Studio](https://aistudio.google.com/app/apikey) - Get your free API key
-- [Łukasiewicz Logic on Wikipedia](https://en.wikipedia.org/wiki/Łukasiewicz_logic)
-- [Propositional Logic](https://en.wikipedia.org/wiki/Propositional_calculus)
 
 ---
 
