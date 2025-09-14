@@ -1,0 +1,53 @@
+[
+    {
+        "test_case": "Simple Modus Ponens",
+        "premises": [
+            "P",
+            "P → Q"
+        ],
+        "goal": "Q",
+        "expected": "SUCCESS",
+        "status": "SUCCESS",
+        "details": "VALID proof found in 1 attempts:\n\n1. P                  Premise\n2. P → Q              Premise\n3. Q                  MP 1, 2"
+    },
+    {
+        "test_case": "Identity via AX1",
+        "premises": [
+            "P"
+        ],
+        "goal": "Q → P",
+        "expected": "SUCCESS",
+        "status": "FAILURE",
+        "details": "FAILED after 3 attempts. Last error: Verifier error: Line 3: Invalid line numbers in MP justification\n\nMake sure to:\n- Use exact justification format ('MP i, j' not 'MP i,j')\n- Match axiom patterns precisely\n- Reference correct line numbers\n\nLast proof attempt:\n1. P                      Premise\n2. A → (B → A)           AX1\n3. (P → (Q → P))         MP 2, 1  (Substituting A with P and B with Q in AX1)\n4. Q → P                 MP 3, 1 (Substituting A with P and B with Q in AX1)\n\n--- COUNTEREXAMPLE ---\n1. Truth assignment: P=True, Q=False\n\n2. Verification that premises are true:\n   - The only premise is P, and we've assigned P=True. Therefore, the premise is true.\n\n3. Verification that the goal is false:\n   - The goal is Q → P.  With Q=False and P=True, the implication Q → P evaluates to True (because a false antecedent implies anything).  This is a correction from my previous response.  My apologies.  Let's try a different approach to demonstrate the unprovability.\n\nLet's re-examine the problem.  The statement Q → P is only false when Q is true and P is false.  Since our premise is P, we can't make P false.  Therefore, we can't create a counterexample where the goal is false while the premise is true using a simple truth assignment.\n\n**Revised Explanation:**\n\nThe reason Q → P cannot be proven from the premise P alone is that the truth of P says nothing about the relationship between P and Q.  Q could be true or false independently of P.  The implication Q → P asserts a conditional relationship;  if Q is true, then P must also be true.  Knowing only that P is true doesn't guarantee this conditional relationship holds.  Therefore, no truth assignment can falsify the premise while making the goal false.  The issue is not in finding a counterexample through truth assignment, but in the logical structure itself.  The inference is simply invalid."
+    },
+    {
+        "test_case": "AX1 instance (no premises)",
+        "premises": [],
+        "goal": "P → (Q → P)",
+        "expected": "SUCCESS",
+        "status": "SUCCESS",
+        "details": "VALID proof found in 1 attempts:\n\n1. P → (Q → P)    AX1"
+    },
+    {
+        "test_case": "Invalid inference",
+        "premises": [
+            "P"
+        ],
+        "goal": "Q",
+        "expected": "FAILURE",
+        "status": "FAILURE",
+        "details": "FAILED after 3 attempts. Last error: Error parsing proof: Invalid line format: This goal is not provable within the given axiom system.  The axioms and inference rule only allow for manipulation of implications; there's no way to introduce a new propositional variable (Q) from the premise P.  To derive Q from P would require additional axioms or rules that relate P and Q.\n\nPlease generate proof in the exact format:\n1. <formula>    <justification>\n2. <formula>    <justification>\n\nLast proof attempt:\nThis goal is not provable within the given axiom system.  The axioms and inference rule only allow for manipulation of implications; there's no way to introduce a new propositional variable (Q) from the premise P.  To derive Q from P would require additional axioms or rules that relate P and Q.\n\n--- COUNTEREXAMPLE ---\n1. **Truth assignment:** P=True, Q=False\n\n2. **Verification that premises are true:** The only premise is P, and we've assigned P=True, so the premise is true.\n\n3. **Verification that the goal is false:** The goal is Q, and we've assigned Q=False, so the goal is false.\n\n4. **Explanation:** This truth assignment demonstrates that it's possible for the premise (P) to be true while the goal (Q) is false.  Therefore, Q does not logically follow from P.  There's no guarantee that Q will be true simply because P is true.  The truth of P doesn't *imply* the truth of Q."
+    },
+    {
+        "test_case": "Complex proof with AX2",
+        "premises": [
+            "P → (Q → R)",
+            "P → Q",
+            "P"
+        ],
+        "goal": "R",
+        "expected": "SUCCESS",
+        "status": "SUCCESS",
+        "details": "VALID proof found in 1 attempts:\n\n1. P → (Q → R)    Premise\n2. P → Q           Premise\n3. P               Premise\n4. Q               MP 3, 2\n5. (Q → R)         MP 3, 1\n6. R               MP 4, 5"
+    }
+]
